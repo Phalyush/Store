@@ -11,4 +11,8 @@ public partial class Header : System.Web.UI.MasterPage
     {
 
     }
+    protected void Enter_Click(object sender, EventArgs e)
+    {
+
+    }
 }
