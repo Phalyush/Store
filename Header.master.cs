@@ -18,7 +18,8 @@ public partial class Header : System.Web.UI.MasterPage
         EnterIntoAdminPage Entrance = new EnterIntoAdminPage(EnterLogin.Text, EnterPassword.Text);
         if (Entrance.Autorization())
         {
-            Response.Cookies["auth"]["login"] = EnterLogin.Text;
+            HttpCookie adminAuth = new HttpCookie("adminUser", EnterLogin.Text);
+            
             Response.Redirect("~/AdminPage.aspx");
         }
         

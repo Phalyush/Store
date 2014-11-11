@@ -15,6 +15,10 @@ public partial class _Default : System.Web.UI.Page
         //                  select mp.Name;
         //MobilePhonesDropDown.DataSource = mobilePhone;
         //MobilePhonesDropDown.DataBind();
+        if (Response.Cookies["adminUser"] == null)
+        {
+            Response.Redirect("~/Main.aspx");
+        }
 
         ShowUserDataContext ud = new ShowUserDataContext();
         var query = (from mob in ud.MobilePhones
