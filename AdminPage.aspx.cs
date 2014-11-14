@@ -20,17 +20,6 @@ public partial class _Default : System.Web.UI.Page
             Response.Redirect("~/Main.aspx");
         }
 
-        ShowUserDataContext ud = new ShowUserDataContext();
-        var query = (from mob in ud.MobilePhones
-                     join mo in ud.PhoneModels on mob.Id equals mo.Name_Id
-                     select new
-                     {
-                         Id = mo.Id,
-                         MobileName = mob.Name
-                     }
-    ).ToList();
-        GridView1.DataSource = query;
-        GridView1.DataBind();
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
