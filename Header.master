@@ -1,175 +1,29 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Header.master.cs" Inherits="Header" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <script src="Js/jquery-2.1.0.min.js"></script>
-
-
-    <style>
-        body {
-            margin: 0;
-            border: 0;
-        }
-
-        #menuBlock {
-            width: 1000px;
-            height: 50px;
-            flex-align: center;
-            margin: 0 auto;
-            background-color: rgba(0, 148, 255, 0.59);
-        }
-
-        .MenuBtn {
-            width: 100px;
-            height: 50px;
-            background-color: rgba(0, 148, 255, 0.2);
-            border: 0px;
-            border-right: 1px solid rgb(0, 120, 207);
-            box-shadow: rgba(0, 0, 0, 1) -1px 0px inset;
-        }
-
-        .showWin {
-            position: absolute;
-            min-width: 100px;
-            min-height: 50px;
-            background-color: #ffd800;
-        }
-
-        .hideWin {
-            display: none;
-        }
-
-        .visibleShoWin {
-            display: block;
-        }
-    </style>
-    <script>
-
-        $(window).load(function () {
-            var e = $(".MenuBtn");
-            e.each(function (params) {
-                var e = $("#" + this.id);
-                if ($("#" + e.attr("id") + "ShowWin")) {
-                    var menuBlock = $("#menuBlock");
-                    // var offsetLeftE = e.offset().left;
-                    //  var midleMenuBlock = parseInt(menuBlock.css("width")) / 2;
-                    params = $.extend({
-                        marginTop: "0",
-                        marginLeft: "0",
-                        speedShow: '1000',
-                        way: 50,
-                    }, params);
-
-                    //creat ShoWin
-
-                    var elemId = e.attr("id") + 'ShowWin';
-
-
-                    //position ShoWin
-                    var position = function (marginTop, marginLeft, way) {
-                        var widthParentEl = menuBlock.width();
-                        // var heightParentEl = parseInt(e.css("height"));
-                        //  var marginLeftParentEl = parseInt(e.css("margin-left"));
-                        var WidthMenuBlock = menuBlock.width();
-                        var PositionElemetFromParent = e.offset().left - menuBlock.offset().left
-                        var WidthSlideElement = $("#" + elemId).width();
-                        if ((WidthMenuBlock - PositionElemetFromParent) < WidthSlideElement) {
-                            $("#" + elemId).css({ "margin-left": +(WidthMenuBlock - WidthSlideElement) + "px" })
-                        }
-                        else { $("#" + elemId).css({ "margin-left": +PositionElemetFromParent + "px" }) }
-
-                        $("#" + elemId).css({ "margin-top": way + "px" })
-
-                        to = 0; // Конечная координата X
-                        from = way; // Начальная координата X
-
-
-                    };
-                    position(params.marginTop, params.marginLeft, params.way);
-                    //animate
-                    var anim;
-                    function animate() {
-                        var start = new Date().getTime(); // Время старта
-                        anim = setTimeout(function () {
-                            var now = (new Date().getTime()) - start; // Текущее время
-                            var progress = now / params.speedShow; // Прогресс анимации
-                            var result = (to - from) * delta(progress) + from;
-                            $("#" + elemId).css({ "margin-top": +result + "px" });
-                            if (progress < 1) // Если анимация не закончилась, продолжаем
-                            {
-                                if ($("#" + elemId).hasClass("visibleShoWin"))
-                                    setTimeout(arguments.callee, 10);
-                                else
-                                    $("#" + elemId).hide();
-                            }
-
-                        }, 10);
-                    }
-
-                    //способи анимации
-                    function delta(progress) {
-                        function d(progress) {
-                            for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
-                                if (progress >= (7 - 4 * a) / 11)
-                                    return -Math.pow((11 - 6 * a - 11 * progress) / 4, 2) + Math.pow(b, 2);
-                            }
-                        }
-                        return 1 - d(1 - progress);
-                    }
-
-
-                    $(this).mouseenter(function () {
-                        clearTimeout(anim);
-                        $(".showWin").removeClass("visibleShoWin").hide();
-                        if (!$("#" + elemId).hasClass("visibleShoWin")) {
-                            mouseEnterFromBtn = setTimeout(function () {
-                                $("#" + elemId).addClass("visibleShoWin").show(0);
-                                animate();
-                            }, 300)
-                        }
-                    })
-                        .mouseleave(function () {
-                            clearTimeout(mouseEnterFromBtn);
-                            mouseLeaveFromBtn = setTimeout(function () {
-                                $("#" + elemId).hide(0).removeClass("visibleShoWin");
-                                animate();
-                            }, 300)
-                        });
-
-
-                    $("#" + elemId).mouseleave(function () {
-                        mouseLeaveFromBtn = setTimeout(function () {
-                            $("#" + elemId).hide(0).removeClass("visibleShoWin");
-                            animate();
-                        }, 300)
-
-                    }).mouseenter(function () { clearTimeout(mouseLeaveFromBtn) })
-
-                }
-            });
-
-        });
-    </script>
+    <link href="Style/HeaderMenu.css" rel="stylesheet" />
+    <script src="Js/HeaderMenu.js"></script>
 </head>
 <body>
-     <form id="form1" runat="server">
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    <form id="form1" runat="server">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
 
-                <asp:Label ID="UserName" runat="server" Text="Логин"></asp:Label>
-                <asp:TextBox ID="EnterLogin" runat="server"></asp:TextBox>
-                <asp:Label ID="UserPassword" runat="server" Text="Пароль"></asp:Label>
-                <asp:TextBox ID="EnterPassword" runat="server"></asp:TextBox>
-                <asp:Button ID="Enter" runat="server" Text="Вход" OnClick="Enter_Click" />
-                <asp:Label ID="error" runat="server" Text="Неверный логин или пароль" Visible="false"></asp:Label>
+            <asp:Label ID="UserName" runat="server" Text="Логин"></asp:Label>
+            <asp:TextBox ID="EnterLogin" runat="server"></asp:TextBox>
+            <asp:Label ID="UserPassword" runat="server" Text="Пароль"></asp:Label>
+            <asp:TextBox ID="EnterPassword" runat="server"></asp:TextBox>
+            <asp:Button ID="Enter" runat="server" Text="Вход" OnClick="Enter_Click" />
+            <asp:Label ID="error" runat="server" Text="Неверный логин или пароль" Visible="false"></asp:Label>
 
-            </asp:ContentPlaceHolder>
-      
-   
+        </asp:ContentPlaceHolder>
+
+
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 <div id="menuBlock">
@@ -187,15 +41,12 @@
                     <div class="showWin hideWin" id="Button8ShowWin">
                         88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                  8<br></br>
-                 8<br></br>
-                 8<br></br>
-                 8<br></br>
+                        8<br></br>
+                        8<br></br>
+                        8<br></br>
                     </div>
                 </div>
             </asp:ContentPlaceHolder>
         </div>
     </form>
-
-
-    
 </html>
