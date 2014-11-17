@@ -1,0 +1,36 @@
+﻿  body {
+            margin: 0;
+            border: 0;
+        }
+
+        #menuBlock {
+            width: 1000px;
+            height: 50px;
+            flex-align: center;
+            margin: 0 auto;
+            background-color: rgba(0, 148, 255, 0.59);
+        }
+
+        .MenuBtn {
+            width: 100px;
+            height: 50px;
+            background-color: rgba(0, 148, 255, 0.2);
+            border: 0px;
+            border-right: 1px solid rgb(0, 120, 207);
+            box-shadow: rgba(0, 0, 0, 1) -1px 0px inset;
+        }
+
+        .showWin {
+            position: absolute;
+            min-width: 100px;
+            min-height: 50px;
+            background-color: #ffd800;
+        }
+
+        .hideWin {
+            display: none;
+        }
+
+        .visibleShoWin {
+            display: block;
+        }
